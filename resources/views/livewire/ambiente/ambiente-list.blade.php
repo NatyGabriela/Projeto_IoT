@@ -18,7 +18,7 @@
         <div class="card">
             <div class="shadow rounded-4">
                 <div class="card-header d-flex justify-content-between alingn-items-center text-white"
-                    style="background-color: blueviolet">
+                    style="background-color: rgb(67, 137, 175)">
                     <h5 class="mb-0">Ambientes</h5>
                     <a href="{{ route('ambiente.create') }}" class="btn btn-light btn-sm">
                         <i class="bi bi-plus-circle"></i>
