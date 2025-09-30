@@ -1,8 +1,12 @@
 <?php
 
+use App\Livewire\Ambiente\AmbienteCreate;
+use App\Livewire\Ambiente\AmbienteEdit;
+use App\Livewire\Ambiente\AmbienteList;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/user', function (Request $request) {
-    return $request->user();
-})->middleware('auth:sanctum');
+
+Route::get('/ambiente/create', AmbienteCreate::class)->name('ambiente.create');
+Route::get('/ambiente/list', AmbienteList::class)->name('ambiente.list');
+Route::get('/ambiente/edit/{id}', AmbienteEdit::class)->name('ambiente.edit');
