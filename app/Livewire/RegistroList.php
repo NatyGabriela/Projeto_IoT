@@ -10,21 +10,42 @@ class RegistroList extends Component
 
      public $sensor_id, $valor, $unidade, $data_hora;
 
-    
+     public $search = '';
+    public $perPage = 10;
 
-    public function List(){
-        $registro = Registro::find();
-        $this->sensor_id = $registro->sensor->id;
-        $this->valor = $registro->valor;
-        $this->unidade = $registro->unidade;
-        $this->data_hora = $registro->data_hora;
-    }
+    protected $queryString = [
+        'search' => ['except' => ''],
+        'perPage' => ['except' => 10],
+    ];
 
     public function render()
     {
-        $registro = Registro::OrderBy('data_hora', 'desc')->get();
-        return view('livewire.registro-list', compact('registro'));
+
+        $registros = Registro::orderBy('id', 'desc')->get();
+        $registros = Registro::where('id', 'like', "%{$this->search}%")
+        ->paginate(15);
+      return view('livewire.registro-list', compact('registros'));
     }
+
+    public function delete($id)
+    {
+        $registro = Registro::find($id);
+        if ($registro != null) {
+            $registro->delete();
+        }
+
+        session()->flash('success', 'registro deletado com sucesso.');
+    }
+
+
+
+
+
+
+
+    }
+
+    
 
 
 
@@ -39,4 +60,4 @@ class RegistroList extends Component
 
 
    
-}
+
