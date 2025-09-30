@@ -1,8 +1,7 @@
 <?php
 
- CrudRegistro
-use App\Http\Controllers\RegistroController;
 
+use App\Http\Controllers\RegistroController;
 use App\Livewire\Ambiente\AmbienteCreate;
 use App\Livewire\Ambiente\AmbienteEdit;
 use App\Livewire\Ambiente\AmbienteList;
