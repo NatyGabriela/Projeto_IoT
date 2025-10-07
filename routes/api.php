@@ -14,7 +14,4 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('registro', [RegistroController::class, 'store']);
 
-Route::get('/ambiente/create', AmbienteCreate::class)->name('ambiente.create');
-Route::get('/ambiente/list', AmbienteList::class)->name('ambiente.list');
-Route::get('/ambiente/edit/{id}', AmbienteEdit::class)->name('ambiente.edit');
 
