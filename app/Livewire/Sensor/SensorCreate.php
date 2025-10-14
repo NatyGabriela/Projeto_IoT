@@ -45,7 +45,7 @@ class SensorCreate extends Component
             'ambiente_id' => $this->ambiente_id
         ]);
 
-          session()->flash('success', 'Cadastro Realizado '); 
+          session()->flash('success', 'Cadastro Realizado Com Sucesso '); 
           return redirect()->route('sensor.list');
     }
 

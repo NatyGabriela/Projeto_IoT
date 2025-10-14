@@ -17,8 +17,7 @@ use App\Livewire\RegistroList;
 use App\Livewire\Sensor\SensorCreate;
 use App\Livewire\Sensor\SensorEdit;
 use App\Livewire\Sensor\SensorList;
-
-
+use App\Livewire\Sensor\SensorStatus;
 
 Route::get('/', Dashboard::class);
 
@@ -28,3 +27,4 @@ Route::get('/edit/{id}', SensorEdit::class)->name('sensor.edit');
 
 
 Route::get('registro/list', RegistroList::class);
+Route::get('sensor/status', SensorStatus::class);

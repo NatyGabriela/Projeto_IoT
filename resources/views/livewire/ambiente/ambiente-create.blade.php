@@ -36,7 +36,7 @@
                             <select class="form-select" aria-label="Default select example" wire:model.defer="status">
                                 <option selected>Selecione os status</option>
                                 <option value="1">Ativo</option>
-                                <option value="0">Nativo</option>
+                                <option value="0">Inativo</option>
                                
                               </select>
                                 @error('status') <span class="text-warning small">{{ $message }}</span>@enderror
