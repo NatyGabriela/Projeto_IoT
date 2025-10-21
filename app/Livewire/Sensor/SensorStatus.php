@@ -8,48 +8,61 @@ use Livewire\WithPagination;
 
 class SensorStatus extends Component
 {
- use WithPagination;
+         use WithPagination;
 
     public Sensor $sensor;
     public bool $status;
-
-    public $search = '';
+    
+     public $search = '';
     public $perPage = 15;
 
     protected $queryString = [
         'search' => ['except' => ''],
         'perPage' => ['except' => 15],
     ];
-
-    public function mount(Sensor $sensor)
+    public function render()
     {
-        $this->sensor = $sensor;
-        $this->status = (bool) $this->sensor->status;
+      // Usa a sintaxe `when` para aplicar o filtro de forma mais limpa.
+        $sensores = Sensor::query()
+            ->when($this->search, function ($query) {
+                $query->where('tipo', 'like', '%' . $this->search . '%')
+                      ->orWhere('codigo', 'like', '%' . $this->search . '%');
+            })
+            ->get();
+return view('livewire.sensor.sensor-status',[
+        'sensores' => $sensores
+        ]);
     }
+
+    
 
     public function toggleStatus($sensorId)
     {
         $sensor = Sensor::find($sensorId);
 
         if ($sensor) {
-            // Alterna o status: se for 'ligado', muda para 'desligado', e vice-versa
-            $sensor->status = ($sensor->status == 'ativo') ? 'inativo' : 'ativo';
-            $sensor->save();
+            // Lógica para determinar o novo status de forma mais legível.
+            $novoStatus = ($sensor->status === 'ativo' || $sensor->status == 1) ? 'inativo' : 'ativo';
+           
+            $sensor->update(['status' => $novoStatus]);
+           
+            // Emite a mensagem de sucesso para a sessão.
+            session()->flash('success', 'Status do ambiente alterado com sucesso!');
         }
     }
+
+
+
+
+
+
+
+
     
-
-
-    public function render()
-    {
-        $sensors = Sensor::where('codigo', 'like', "%{$this->search}%")
-            ->orWhere('tipo', 'like', "%{$this->search}%")
-            ->orWhere('status', 'like', "%{$this->search}%")
-            ->paginate($this->perPage);
-
-        return view('livewire.sensor.sensor-status',compact('sensors'));
 }
 
 
 
-}
+
+
+
