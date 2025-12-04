@@ -1,5 +1,5 @@
 <div class="mt-5">
-    @if (session()->has('message'))
+    @if (session()->has('success'))
     <div class="alert alert-success alert-dismissible fade show" role="alert">
         {{ session('message') }}
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -14,6 +14,10 @@
                     <div class="card-header text-center fw-bold text-body-color mb-1" style="background-color: rgb(165, 43, 226)">
                         <h4>Cadastro de Sensores</h4>
                     </div>
+                    
+                @if (session()->has('error'))
+                    <div class="alert alert-danger">{{ session('error') }}</div>
+                @endif
                     <div class="card-body">
                         <form wire:submit.prevent="store">
                             <div class="mb-3">
@@ -25,13 +29,19 @@
                                     @enderror
                             </div>
                             <div class="mb-3">
-                                <label for="tipo" class="form-label">Tipo</label>
-                                <input type="text" class="form-control" id="tipo" wire:model.defer="tipo"
-                                    placeholder="EX:.infravermelho...">
-                                    @error('tipo')
-                                    <small class="text-danger">{{ $message }}</small>
-                                    @enderror
-                            </div>
+                        <label for="tipo" class="form-label fw-bold">TIPO</label>
+                        <select class="form-select" aria-label="Default select example" wire:model.defer="tipo">
+                            <option hidden></option>
+                            <option value="luminosidade">Luminosidade</option>
+                            <option value="rfid">RFID</option>
+                            <option value="infravermelho">Infravermelho</option>
+                            <option value="temperatura">Temperatura</option>
+                            <option value="umidade">Umidade</option>
+                        </select>
+                        @error('tipo')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
 
                             <div class="mb-3">
                                 <label for="descricao" class="form-label">Descrição</label>

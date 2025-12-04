@@ -11,28 +11,28 @@ class AmbienteList extends Component
 
     use WithPagination;
 
-    public $search = '';
+     public $search = '';
     public $perPage = 10;
 
-    protected $queryString = [
+    protected $queryString =[
         'search' => ['except' => ''],
         'perPage' => ['except' => 10],
-    ];
-
-
-
-
+    ]; 
 
     public function render()
     {
-        $ambiente = Ambiente::all();
-
         $ambiente = Ambiente::where('nome', 'like', "%{$this->search}%")
-            ->orWhere('descricao', 'like', "%{$this->search}%")
-            ->orWhere('status', 'like', "%{$this->search}%")
-            ->paginate($this->perPage);
+         ->orWhere('descricao', 'like', "%{$this->search}%")
+         ->orWhere('status', 'like', "%{$this->search}%")
+         ->paginate($this->perPage);
+
 
             return view('livewire.ambiente.ambiente-list', compact('ambiente'));
+    }
+     public function delete($id)
+    {
+        Ambiente::findOrFail($id)->delete();
+        session()->flash('message', 'Ambiente deletado com sucesso');
     }
 
 }
